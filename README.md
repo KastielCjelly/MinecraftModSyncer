@@ -15,11 +15,11 @@ Threre are the table of available commands:
 |:---:|:---:|:---:|
 |set-path|<path>|Sets path of your minecraft root folder|
 |view|No Args|Prints the table of your modpacks|
-|add|<name> <link> <loader>|Creates a modpack. Link is a link to your shared Yandex Disk folder. Loaders is something like yandex|
-|load|<name>|Erases mods in your 'mods' folder and downloads mods from given modpack|
-|rename|<oldName> <newName>|Renames given modpack|
-|change-link|<name> <newLink>|Changes the link to given modpack|
-|change-loader|<name> <newLoader>|Changes the loader of given modpack|
-|remove|<name>|Removes given modpack|
+|add|name link loader|Creates a modpack. Link is a link to your shared Yandex Disk folder. Loaders is something like yandex|
+|load|name|Erases mods in your 'mods' folder and downloads mods from given modpack|
+|rename|oldName newName|Renames given modpack|
+|change-link|name newLink|Changes the link to given modpack|
+|change-loader|name newLoader|Changes the loader of given modpack|
+|remove|name|Removes given modpack|
 ## Using GUI
 GUI is not implemented yet. Sorry :(
