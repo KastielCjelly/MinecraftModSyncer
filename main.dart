@@ -34,9 +34,10 @@ set-path <path>
 view
 add <name> <link> <loader>
 rename <oldName> <newName>
-change-link <name> <oldLink> <newLink>
-change-loader <name> <oldLoader> <newLoader>
+change-link <name> <newLink>
+change-loader <name> <newLoader>
 remove <name>
+load <name>
 ''');
 }
 
