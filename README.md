@@ -4,7 +4,7 @@ This is an application, that helps you manage your modpacks using Yandex Disk sh
 > Other cloud storages will be supported later
 ## Installation
 * Download the latest release
-* Unpack the archive to any foler you want
+* Unpack the archive to any folder you want
 * Add the folder to the PATH
 * You're great! UwU
 ## Using CLI
