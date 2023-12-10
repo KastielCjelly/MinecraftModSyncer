@@ -5,7 +5,11 @@ import './loaders.dart' as loader;
 void main(List<String> args) {
   userdata.init();
   repomanager.load();
-  if (args[0] == 'no-gui') cliStuff(args.skip(1).toList());
+  try {
+    if (args[0] == 'no-gui') cliStuff(args.skip(1).toList());
+  } catch (error) {
+    print('Oops, something went wrong :(');
+  }
 }
 
 void cliStuff(List<String> args) {
@@ -92,7 +96,7 @@ void rename(List<String> args) {
   print('Repo was renamed: ' + args[1] + '->' + args[2]);
 }
 
-void load(List<String> args) {
+void load(List<String> args) async {
   final data = repomanager.getRepoData(args[1]);
   loader.loadWith(data.$2, data.$1);
 }
