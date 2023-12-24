@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 import './utils.dart' as utils;
 import 'userdata.dart' as userdata;
 import 'utils.dart' show JsonExtension;
 
 const _loaders = <String, Future<void> Function(String)>{
-  'yandex': _loadWithYandex
+  'yandex': _loadWithYandex,
+  'pastebin': _loadWithPastebin,
 };
 final _modsPath = utils.combinePath([userdata.minecraftPath, 'mods']);
+final _client = HttpClient();
 
 Future<void> loadWith(String loader, String link) async {
   final dir = Directory(_modsPath);
@@ -19,11 +22,9 @@ Future<void> _loadWithYandex(String link) async {
   const YANDEX_URL = 'https://cloud-api.yandex.net/v1/disk/public/resources';
   const CHUNK_SIZE = 16;
 
-  final client = HttpClient();
-
   Future<Map<String, dynamic>> yandexJson(int limit, {int offset = 0}) async {
     return utils.HttpGetJson(
-        client,
+        _client,
         utils.addApiAttributes(YANDEX_URL, [
           ('public_key', link),
           ('limit', limit.toString()),
@@ -43,7 +44,7 @@ Future<void> _loadWithYandex(String link) async {
       if (file.getProperty<String>('type') != 'file') continue;
       final name = file.getProperty<String>('name');
 
-      tasks.add(client
+      tasks.add(_client
           .getUrl(Uri.parse(file.getProperty<String>('file')))
           .then((request) => request.close())
           .then((response) => response
@@ -51,4 +52,21 @@ Future<void> _loadWithYandex(String link) async {
           .then((x) => print(name)));
     }
   }
+}
+
+Future<void> _loadWithPastebin(String link) async {
+  return _client
+      .getUrl(Uri.parse(link))
+      .then((request) => request.close())
+      .then((response) => response.transform(utf8.decoder))
+      .then((stream) => stream.forEach((element) async {
+            final nm = element.split(' ');
+            await _client
+                .getUrl(Uri.parse(nm[1]))
+                .then((fileReq) => fileReq.close())
+                .then((fileResp) => fileResp.pipe(
+                    File(utils.combinePath([_modsPath, nm[0] + '.jar']))
+                        .openWrite()))
+                .then((x) => print(nm[0]));
+          }));
 }
