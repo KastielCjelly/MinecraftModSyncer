@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import './commands.dart' as commands;
@@ -14,11 +12,8 @@ void run() async {
 
 Response _guiResponse(Request request) {
   var command = <String>[];
-  command.addAll(request.requestedUri.pathSegments);
+  command.addAll(request.requestedUri.queryParameters.values);
   if (command.length > 0) {
-    if (command[0] == 'add') {
-      command[2] = command[2].replaceFirst('_YANDEXSHIT_', 'https://disk.yandex.com/d/');
-    }
     commands.cliStuff(command);
   }
   return Response

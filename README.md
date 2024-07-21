@@ -35,4 +35,7 @@ Threre are the table of available commands:
 |change-loader|name newLoader|Changes the loader of given modpack|
 |remove|name|Removes given modpack|
 ## Using GUI
-GUI is not implemented yet. Sorry :(
+When you start this application without any command line arguments, it sends you a link.
+This is link to a web page, that is your GUI.
+__IMPORTANT:__
+GUI capabilities are limited: you can only add modpacks and load them.
